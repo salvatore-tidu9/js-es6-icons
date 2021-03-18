@@ -138,6 +138,34 @@ $(document).ready(function () {
 
 	// ---ICONE NEL CONTAINER---
 	print(coloredArray, container);
+
+
+	const select = $("#type");
+
+	const types = getType(coloredArray);
+
+	console.log(types);
+
+	//AGGIUNTA OPTIONS A SELECT
+	printOptions(types, select);
+
+	select.change({container}, function(event) {
+
+		const container = event.data.container;
+
+		const option = $(this).val();
+
+
+		const optionFiltered = coloredArray.filter((item) => {
+
+			return item.type === option;
+
+		});
+
+		print(optionFiltered, container);
+
+	});
+
 });
 
 
@@ -157,11 +185,11 @@ function print(array, container) {
 		const elementHTML = 
 
 		`
-		<div>
+		<div class="icon">
 
-		<i class= "${family} ${prefix}${name}" style= "color: ${color}"></i>
+		<i class= "${family} ${prefix}${name}" style="color: ${color}"></i>
 
-		<div class= "title">${name.toUpperCase()}</div>
+		<div class= "title" style="color: ${color}">${name.toUpperCase()}</div>
 
 		</div>
 		
@@ -236,3 +264,17 @@ function getType(array) {
 
 	return types;
 }
+
+
+//--------------------------------------------------
+
+function printOptions(array, select) {
+
+	array.forEach((item) => {
+
+		select.append(`<option value="${item}">${item}</option>`)
+	});
+}
+
+//---------------------------------------------------
+
